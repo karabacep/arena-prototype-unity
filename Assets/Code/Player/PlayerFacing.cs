@@ -4,6 +4,7 @@ public class PlayerFacing : MonoBehaviour
 {
     [SerializeField] private PlayerInputHandler input;
     [SerializeField] private Transform cameraYaw;
+    [SerializeField] private Transform visual;
 
     private void Awake()
     {
@@ -19,7 +20,7 @@ public class PlayerFacing : MonoBehaviour
             Vector3 forward = cameraYaw.forward;
             forward.y = 0f;
             if (forward.sqrMagnitude > 0.0001f)
-                transform.rotation = Quaternion.LookRotation(forward);
+                visual.rotation = Quaternion.LookRotation(forward);
         }
     }
 }
