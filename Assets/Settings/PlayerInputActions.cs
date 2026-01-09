@@ -163,6 +163,51 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Cast1"",
+                    ""type"": ""Button"",
+                    ""id"": ""2eeff061-3da0-4c5d-a112-53f3d83ce2b7"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Cast2"",
+                    ""type"": ""Button"",
+                    ""id"": ""087449b6-ae92-4c2f-9436-f0923c3d87c2"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Cast3"",
+                    ""type"": ""Button"",
+                    ""id"": ""26e5088c-eea1-4f1e-a756-ebf81f0b5198"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Cast4"",
+                    ""type"": ""Button"",
+                    ""id"": ""b1492b43-e34a-4d9e-9d44-33f33616a36e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Cast5"",
+                    ""type"": ""Button"",
+                    ""id"": ""9c5e1d8c-900b-45ad-b20d-5cda45df7a31"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -297,6 +342,61 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Zoom"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""94103294-7ffb-4ef5-ba20-6b47e81ec026"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cast1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d49d8c9d-c665-4366-ae9c-669b0b77e125"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cast2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8063795e-a099-47be-ac5a-33b394a830bf"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cast3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ac2da02c-9d4a-4459-bd88-d4c9064d1576"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cast4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d544ed85-627f-4148-ae86-15523bf2df3e"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cast5"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -330,6 +430,11 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Gameplay_Auto = m_Gameplay.FindAction("Auto", throwIfNotFound: true);
         m_Gameplay_RotateCamera = m_Gameplay.FindAction("RotateCamera", throwIfNotFound: true);
         m_Gameplay_Zoom = m_Gameplay.FindAction("Zoom", throwIfNotFound: true);
+        m_Gameplay_Cast1 = m_Gameplay.FindAction("Cast1", throwIfNotFound: true);
+        m_Gameplay_Cast2 = m_Gameplay.FindAction("Cast2", throwIfNotFound: true);
+        m_Gameplay_Cast3 = m_Gameplay.FindAction("Cast3", throwIfNotFound: true);
+        m_Gameplay_Cast4 = m_Gameplay.FindAction("Cast4", throwIfNotFound: true);
+        m_Gameplay_Cast5 = m_Gameplay.FindAction("Cast5", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
@@ -418,6 +523,11 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Auto;
     private readonly InputAction m_Gameplay_RotateCamera;
     private readonly InputAction m_Gameplay_Zoom;
+    private readonly InputAction m_Gameplay_Cast1;
+    private readonly InputAction m_Gameplay_Cast2;
+    private readonly InputAction m_Gameplay_Cast3;
+    private readonly InputAction m_Gameplay_Cast4;
+    private readonly InputAction m_Gameplay_Cast5;
     /// <summary>
     /// Provides access to input actions defined in input action map "Gameplay".
     /// </summary>
@@ -461,6 +571,26 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Gameplay/Zoom".
         /// </summary>
         public InputAction @Zoom => m_Wrapper.m_Gameplay_Zoom;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/Cast1".
+        /// </summary>
+        public InputAction @Cast1 => m_Wrapper.m_Gameplay_Cast1;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/Cast2".
+        /// </summary>
+        public InputAction @Cast2 => m_Wrapper.m_Gameplay_Cast2;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/Cast3".
+        /// </summary>
+        public InputAction @Cast3 => m_Wrapper.m_Gameplay_Cast3;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/Cast4".
+        /// </summary>
+        public InputAction @Cast4 => m_Wrapper.m_Gameplay_Cast4;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/Cast5".
+        /// </summary>
+        public InputAction @Cast5 => m_Wrapper.m_Gameplay_Cast5;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -511,6 +641,21 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Zoom.started += instance.OnZoom;
             @Zoom.performed += instance.OnZoom;
             @Zoom.canceled += instance.OnZoom;
+            @Cast1.started += instance.OnCast1;
+            @Cast1.performed += instance.OnCast1;
+            @Cast1.canceled += instance.OnCast1;
+            @Cast2.started += instance.OnCast2;
+            @Cast2.performed += instance.OnCast2;
+            @Cast2.canceled += instance.OnCast2;
+            @Cast3.started += instance.OnCast3;
+            @Cast3.performed += instance.OnCast3;
+            @Cast3.canceled += instance.OnCast3;
+            @Cast4.started += instance.OnCast4;
+            @Cast4.performed += instance.OnCast4;
+            @Cast4.canceled += instance.OnCast4;
+            @Cast5.started += instance.OnCast5;
+            @Cast5.performed += instance.OnCast5;
+            @Cast5.canceled += instance.OnCast5;
         }
 
         /// <summary>
@@ -546,6 +691,21 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Zoom.started -= instance.OnZoom;
             @Zoom.performed -= instance.OnZoom;
             @Zoom.canceled -= instance.OnZoom;
+            @Cast1.started -= instance.OnCast1;
+            @Cast1.performed -= instance.OnCast1;
+            @Cast1.canceled -= instance.OnCast1;
+            @Cast2.started -= instance.OnCast2;
+            @Cast2.performed -= instance.OnCast2;
+            @Cast2.canceled -= instance.OnCast2;
+            @Cast3.started -= instance.OnCast3;
+            @Cast3.performed -= instance.OnCast3;
+            @Cast3.canceled -= instance.OnCast3;
+            @Cast4.started -= instance.OnCast4;
+            @Cast4.performed -= instance.OnCast4;
+            @Cast4.canceled -= instance.OnCast4;
+            @Cast5.started -= instance.OnCast5;
+            @Cast5.performed -= instance.OnCast5;
+            @Cast5.canceled -= instance.OnCast5;
         }
 
         /// <summary>
@@ -655,5 +815,40 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnZoom(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Cast1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnCast1(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Cast2" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnCast2(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Cast3" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnCast3(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Cast4" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnCast4(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Cast5" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnCast5(InputAction.CallbackContext context);
     }
 }

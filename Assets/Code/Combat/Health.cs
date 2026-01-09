@@ -28,7 +28,8 @@ public class Health : MonoBehaviour
     public void TakeDamage(float amount)
     {
         if (IsDead) return;
-
+        var mods = GetComponent<DamageModifiers>();
+        if (mods != null) amount = mods.ModifyIncomingDamage(amount);
         CurrentHp = Mathf.Max(0f, CurrentHp - amount);
         combatState?.NotifyCombat();
         OnDamaged?.Invoke(this, amount);

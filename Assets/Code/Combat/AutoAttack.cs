@@ -32,7 +32,8 @@ public class AutoAttack : MonoBehaviour
     private void Update()
     {
         if (targeting == null || aimPoint == null) return;
-
+        var status = GetComponent<Arena.Combat.StatusController>();
+        if (status != null && status.Has(Arena.Combat.StatusType.Stun)) return;
         Transform target = targeting.CurrentTarget;
         if (target == null) return;
 

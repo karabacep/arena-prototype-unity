@@ -336,6 +336,67 @@ Transform:
   - {fileID: 1221464166}
   m_Father: {fileID: 262023846}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &592913905
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 592913907}
+  - component: {fileID: 592913906}
+  - component: {fileID: 592913908}
+  m_Layer: 0
+  m_Name: DebugHUD
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &592913906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 592913905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7233618bf2a0ef149a27a9bdc079c170, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DebugHUD
+  playerHealth: {fileID: 1259504340}
+  playerCombat: {fileID: 1259504343}
+  targeting: {fileID: 1259504338}
+--- !u!4 &592913907
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 592913905}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.4338, y: 0.29176, z: 12.31281}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &592913908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 592913905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e820c0dce7cc7604181ac96cf5a2bcd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CastDebugHUD
+  runner: {fileID: 1259504346}
 --- !u!1 &732240641
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,6 +523,8 @@ GameObject:
   - component: {fileID: 808354059}
   - component: {fileID: 808354063}
   - component: {fileID: 808354064}
+  - component: {fileID: 808354065}
+  - component: {fileID: 808354066}
   m_Layer: 3
   m_Name: Ennemy_01
   m_TagString: Untagged
@@ -593,6 +656,32 @@ MonoBehaviour:
   health: {fileID: 0}
   respawnDelay: 3
   spawnPoint: {fileID: 2095457128}
+--- !u!114 &808354065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 808354058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a76ca753770c3c45941b691892b38ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatState
+  outOfCombatDelay: 10
+--- !u!114 &808354066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 808354058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89c27e8c0a95a6c4ab7108f20c9a19ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthRegen
+  regenPerSecond: 15
 --- !u!1 &833670334
 GameObject:
   m_ObjectHideFlags: 0
@@ -787,6 +876,10 @@ GameObject:
   - component: {fileID: 1259504339}
   - component: {fileID: 1259504341}
   - component: {fileID: 1259504342}
+  - component: {fileID: 1259504343}
+  - component: {fileID: 1259504344}
+  - component: {fileID: 1259504346}
+  - component: {fileID: 1259504345}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -960,6 +1053,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: c6f122ca-7170-4501-8a6f-f83c86e21335
     m_ActionName: 'Gameplay/Zoom[/Mouse/scroll/y]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1259504333}
+        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
+        m_MethodName: OnCast1
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2eeff061-3da0-4c5d-a112-53f3d83ce2b7
+    m_ActionName: 'Gameplay/Cast1[/Keyboard/1]'
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: New Control Scheme
   m_DefaultActionMap: Gameplay
@@ -1031,7 +1140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AutoAttack
   targeting: {fileID: 0}
   aimPoint: {fileID: 0}
-  range: 50
+  range: 10
   damage: 10
   attackInterval: 1.8
   losBlockers:
@@ -1080,6 +1189,64 @@ MonoBehaviour:
   input: {fileID: 0}
   cameraYaw: {fileID: 344115515}
   visual: {fileID: 2025869862}
+--- !u!114 &1259504343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259504332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a76ca753770c3c45941b691892b38ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatState
+  outOfCombatDelay: 10
+--- !u!114 &1259504344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259504332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89c27e8c0a95a6c4ab7108f20c9a19ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthRegen
+  regenPerSecond: 5
+--- !u!114 &1259504345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259504332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c4b975c93d4c75499842d3046b75fd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Arena.Abilities.AbilityHotkeysTest
+  input: {fileID: 0}
+  runner: {fileID: 0}
+  ability1: {fileID: 11400000, guid: fc942f4bb22aed94984e6521a56e9a9e, type: 2}
+--- !u!114 &1259504346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259504332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b858158c508cca4b8628e2bd504b402, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Arena.Abilities.AbilityRunner
+  targeting: {fileID: 0}
+  aimPoint: {fileID: 0}
+  losBlockers:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &1397950229
 GameObject:
   m_ObjectHideFlags: 0
@@ -1701,3 +1868,4 @@ SceneRoots:
   - {fileID: 866022794}
   - {fileID: 1397950230}
   - {fileID: 2095457128}
+  - {fileID: 592913907}

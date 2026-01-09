@@ -23,6 +23,8 @@ public class PlayerMotor : MonoBehaviour
     private void Update()
     {
         ApplyGravity();
+        var status = GetComponent<Arena.Combat.StatusController>();
+        if (status != null && status.Has(Arena.Combat.StatusType.Stun)) return;
         Move();
     }
 
