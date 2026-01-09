@@ -66,5 +66,14 @@ namespace Arena.Combat
 
             return list;
         }
+        public void ClearAll()
+        {
+            foreach (var type in (StatusType[])System.Enum.GetValues(typeof(StatusType)))
+            {
+                if (Has(type))
+                    OnStatusChanged?.Invoke(type, false, 0f);
+            }
+            endTime.Clear();
+        }
     }
 }
