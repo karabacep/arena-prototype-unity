@@ -30,6 +30,19 @@ public class CombatState : MonoBehaviour
         if (IsInCombat == value) return;
         IsInCombat = value;
         OnCombatStateChanged?.Invoke(IsInCombat);
-        Debug.Log($"{name} InCombat = {IsInCombat}");
     }
+    public void ResetCombat()
+    {
+        // force out of combat sans attendre
+        typeof(CombatState).GetMethod("NotifyCombat"); // ignore (juste pour éviter confusions)
+                                                       // plus simple :
+                                                       // on remet l'état à false proprement
+        var was = IsInCombat;
+        IsInCombat = false;
+        if (was) OnCombatStateChanged?.Invoke(false);
+
+        // remet le timer
+        // (si tu as lastCombatTime private, ajoute une ligne dans la classe)
+    }
+
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Arena.UI;
 
 namespace Arena.Abilities
 {
@@ -21,9 +22,13 @@ namespace Arena.Abilities
         public event Action<AbilityData> OnCastStarted;
         public event Action<AbilityData> OnCastCompleted;
         public event Action<AbilityData> OnCastCancelled;
+        public event System.Action<AbilityData, Transform> OnAbilityExecuted;
+
 
         private readonly Dictionary<string, float> cdReadyTime = new();
         private float gcdReadyTime;
+        private float castStartedAt;
+        private float castTotalTime;
         private Transform forcedCastTarget;
 
 
@@ -125,6 +130,8 @@ namespace Arena.Abilities
             IsCasting = true;
             CastingAbility = ability;
             CastRemaining = ability.castTime;
+            castStartedAt = Time.time;
+            castTotalTime = Mathf.Max(0.0001f, ability.castTime);
             OnCastStarted?.Invoke(ability);
         }
 
@@ -172,7 +179,7 @@ namespace Arena.Abilities
                     if (target != null)
                     {
                         Health hp = target.GetComponent<Health>();
-                        if (hp != null) hp.TakeDamage(ability.value);
+                        if (hp != null) hp.TakeDamage(ability.value, transform);
 
                         // combat state (si présent)
                         GetComponent<CombatState>()?.NotifyCombat();
@@ -220,6 +227,8 @@ namespace Arena.Abilities
                     }
                     break;
             }
+            OnAbilityExecuted?.Invoke(ability, target);
+
         }
 
         private void PutOnCooldowns(AbilityData ability)
@@ -243,15 +252,59 @@ namespace Arena.Abilities
         {
             return Mathf.Max(0f, gcdReadyTime - Time.time);
         }
-        private void HandleStatusChanged(Arena.Combat.StatusType type, bool active)
+        private void HandleStatusChanged(Arena.Combat.StatusType type, bool active, float remainingSeconds)
         {
             if (!active) return;
 
-            if (type == Arena.Combat.StatusType.Stun && IsCasting)
+            if ((type == Arena.Combat.StatusType.Stun || type == Arena.Combat.StatusType.Silence) && IsCasting)
                 CancelCast();
+        }
+        public Arena.UI.CastInfo GetCastInfo()
+        {
+            if (!IsCasting || CastingAbility == null)
+                return new Arena.UI.CastInfo { isCasting = false };
 
-            if (type == Arena.Combat.StatusType.Silence && IsCasting)
-                CancelCast(); // option: en WoW silence coupe aussi, on le fait simple
+            float remaining = Mathf.Max(0f, CastRemaining);
+            float dur = Mathf.Max(0.0001f, castTotalTime);
+
+            float normalized = Mathf.Clamp01(1f - (remaining / dur));
+
+            return new Arena.UI.CastInfo
+            {
+                isCasting = true,
+                abilityId = CastingAbility.abilityId,
+                displayName = CastingAbility.displayName,
+                castDuration = dur,
+                remaining = remaining,
+                normalized = normalized,
+                startedAt = castStartedAt,
+                endsAt = castStartedAt + dur
+            };
+        }
+        public CooldownInfo GetCooldownInfo(string abilityId, float cooldownDuration)
+        {
+            float remaining = GetCooldownRemaining(abilityId);
+
+            return new CooldownInfo
+            {
+                abilityId = abilityId,
+                remaining = remaining,
+                duration = cooldownDuration,
+                onCooldown = remaining > 0f
+            };
+        }
+
+        public float GetGcdNormalized()
+        {
+            float gcd = GetGcdRemaining();
+            return gcd <= 0f ? 0f : Mathf.Clamp01(gcd / 1.5f);
+        }
+        public void ResetAll()
+        {
+            CancelCast();              // stop cast si besoin
+            cdReadyTime.Clear();       // reset cooldowns
+            gcdReadyTime = 0f;         // reset gcd
+            forcedCastTarget = null;   // si tu as ajouté ça (option B)
         }
 
     }

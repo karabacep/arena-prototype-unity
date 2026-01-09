@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using Arena.UI;
+
 
 public class Health : MonoBehaviour
 {
@@ -12,7 +14,8 @@ public class Health : MonoBehaviour
     public bool IsDead => CurrentHp <= 0f;
 
     public event Action<Health> OnDied;
-    public event Action<Health, float> OnDamaged;
+    public event System.Action<Health, Transform, float, float> OnDamaged;
+    // (victimHealth, attacker, rawDamage, finalDamage)
 
     private void Awake()
     {
@@ -25,14 +28,20 @@ public class Health : MonoBehaviour
         CurrentHp = maxHp;
     }
 
-    public void TakeDamage(float amount)
+    public void TakeDamage(float rawDamage, Transform attacker = null)
     {
         if (IsDead) return;
+
+        float finalDamage = rawDamage;
+
         var mods = GetComponent<DamageModifiers>();
-        if (mods != null) amount = mods.ModifyIncomingDamage(amount);
-        CurrentHp = Mathf.Max(0f, CurrentHp - amount);
+        if (mods != null) finalDamage = mods.ModifyIncomingDamage(finalDamage);
+
+        CurrentHp = Mathf.Max(0f, CurrentHp - finalDamage);
+
+        OnDamaged?.Invoke(this, attacker, rawDamage, finalDamage);
+
         combatState?.NotifyCombat();
-        OnDamaged?.Invoke(this, amount);
 
         if (IsDead)
             OnDied?.Invoke(this);
@@ -40,6 +49,15 @@ public class Health : MonoBehaviour
     public void SetCurrentHp(float value)
     {
         CurrentHp = Mathf.Clamp(value, 0f, maxHp);
+    }
+    public HealthInfo GetHealthInfo()
+    {
+        return new HealthInfo
+        {
+            current = CurrentHp,
+            max = maxHp,
+            normalized = maxHp <= 0f ? 0f : CurrentHp / maxHp
+        };
     }
 
 }

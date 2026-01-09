@@ -54,7 +54,7 @@ public class AutoAttack : MonoBehaviour
             Health hp = target.GetComponent<Health>();
             if (hp != null)
             {
-                hp.TakeDamage(damage);
+                hp.TakeDamage(damage, transform);
                 myCombat?.NotifyCombat();
                 CombatState targetCombat = target.GetComponent<CombatState>();
                 targetCombat?.NotifyCombat();

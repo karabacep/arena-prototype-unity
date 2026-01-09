@@ -143,9 +143,5 @@ public class TargetingSystem : MonoBehaviour
     {
         CurrentTarget = t;
         // Plus tard: event OnTargetChanged(CurrentTarget)
-        if (t != null)
-            Debug.Log($"TARGET SET : {t.name}");
-        else
-            Debug.Log("TARGET CLEARED");
     }
 }
