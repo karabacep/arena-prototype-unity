@@ -44,5 +44,11 @@ public class CombatState : MonoBehaviour
         // remet le timer
         // (si tu as lastCombatTime private, ajoute une ligne dans la classe)
     }
+    public void ForceSetCombat(bool value)
+    {
+        if (IsInCombat == value) return;
+        IsInCombat = value;
+        OnCombatStateChanged?.Invoke(IsInCombat);
+    }
 
 }

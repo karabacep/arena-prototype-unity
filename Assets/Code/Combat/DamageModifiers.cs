@@ -17,4 +17,9 @@ public class DamageModifiers : MonoBehaviour
             return dmg * shieldMultiplier;
         return dmg;
     }
+    public void ResetAll()
+    {
+        ApplyShield(0f, 1f);
+    }
+
 }
