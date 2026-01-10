@@ -52,6 +52,8 @@ namespace Arena.Abilities
 
         public bool TryCast(AbilityData ability)
         {
+            var mm = FindObjectOfType<MatchManager>();
+            if (mm != null && !mm.CanAct) return false;
             if (ability == null) return false;
             if (status != null && (status.Has(Arena.Combat.StatusType.Stun) || status.Has(Arena.Combat.StatusType.Silence)))
                 return false;
@@ -89,6 +91,8 @@ namespace Arena.Abilities
         }
         public bool TryCastOnTarget(AbilityData ability, Transform target)
         {
+            var mm = FindObjectOfType<MatchManager>();
+            if (mm != null && !mm.CanAct) return false;
             if (ability == null) return false;
             if (status != null && (status.Has(Arena.Combat.StatusType.Stun) || status.Has(Arena.Combat.StatusType.Silence)))
                 return false;

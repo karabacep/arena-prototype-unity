@@ -24,3 +24,4 @@ MonoBehaviour:
   requiresLineOfSight: 1
   effectType: 0
   value: 25
+  duration: 0

@@ -31,6 +31,8 @@ public class AutoAttack : MonoBehaviour
 
     private void Update()
     {
+        var mm = FindObjectOfType<MatchManager>();
+        if (mm != null && !mm.CanAct) return;
         if (targeting == null || aimPoint == null) return;
         var status = GetComponent<Arena.Combat.StatusController>();
         if (status != null && status.Has(Arena.Combat.StatusType.Stun)) return;

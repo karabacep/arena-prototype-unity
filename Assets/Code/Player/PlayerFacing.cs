@@ -23,4 +23,14 @@ public class PlayerFacing : MonoBehaviour
                 visual.rotation = Quaternion.LookRotation(forward);
         }
     }
+    public void SnapToDirection(Vector3 forward)
+    {
+        if (visual == null) return;
+
+        forward.y = 0f;
+        if (forward.sqrMagnitude < 0.0001f) return;
+
+        visual.rotation = Quaternion.LookRotation(forward.normalized);
+    }
+
 }
