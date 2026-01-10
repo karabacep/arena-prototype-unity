@@ -12,6 +12,7 @@ namespace Arena.Abilities
         [SerializeField] private Transform aimPoint;
         [SerializeField] private LayerMask losBlockers;
         [SerializeField] private Arena.Combat.StatusController status;
+        [SerializeField] private MatchManager match;
 
 
         [Header("State")]
@@ -43,6 +44,7 @@ namespace Arena.Abilities
                 var t = transform.Find("AimPoint");
                 if (t != null) aimPoint = t;
             }
+            if (match == null) match = FindFirstObjectByType<MatchManager>();
         }
 
         private void Update()
@@ -52,8 +54,7 @@ namespace Arena.Abilities
 
         public bool TryCast(AbilityData ability)
         {
-            var mm = FindObjectOfType<MatchManager>();
-            if (mm != null && !mm.CanAct) return false;
+            if (match != null && !match.CanAct) return false;
             if (ability == null) return false;
             if (status != null && (status.Has(Arena.Combat.StatusType.Stun) || status.Has(Arena.Combat.StatusType.Silence)))
                 return false;
@@ -91,8 +92,7 @@ namespace Arena.Abilities
         }
         public bool TryCastOnTarget(AbilityData ability, Transform target)
         {
-            var mm = FindObjectOfType<MatchManager>();
-            if (mm != null && !mm.CanAct) return false;
+            if (match != null && !match.CanAct) return false;
             if (ability == null) return false;
             if (status != null && (status.Has(Arena.Combat.StatusType.Stun) || status.Has(Arena.Combat.StatusType.Silence)))
                 return false;
@@ -310,6 +310,5 @@ namespace Arena.Abilities
             gcdReadyTime = 0f;         // reset gcd
             forcedCastTarget = null;   // si tu as ajouté ça (option B)
         }
-
     }
 }

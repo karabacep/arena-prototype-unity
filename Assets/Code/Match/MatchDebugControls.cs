@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MatchDebugControls : MonoBehaviour
 {
@@ -6,14 +7,17 @@ public class MatchDebugControls : MonoBehaviour
 
     private void Awake()
     {
-        if (match == null) match = FindObjectOfType<MatchManager>();
+
     }
 
     private void Update()
     {
         if (match == null) return;
 
-        if (match.State == MatchManager.MatchState.MatchEnd && Input.GetKeyDown(KeyCode.R))
+        // New Input System ONLY
+        if (match.State == MatchManager.MatchState.MatchEnd &&
+            Keyboard.current != null &&
+            Keyboard.current.rKey.wasPressedThisFrame)
         {
             match.RestartMatch();
         }

@@ -13,6 +13,8 @@ public class AutoAttack : MonoBehaviour
 
     [Header("Line of Sight")]
     [SerializeField] private LayerMask losBlockers;
+    [Header("Match")]
+    [SerializeField] private MatchManager match;
 
     private float timer;
     private CombatState myCombat;
@@ -27,12 +29,12 @@ public class AutoAttack : MonoBehaviour
             Transform t = transform.Find("AimPoint");
             if (t != null) aimPoint = t;
         }
+        if (match == null) match = FindFirstObjectByType<MatchManager>();
     }
 
     private void Update()
     {
-        var mm = FindObjectOfType<MatchManager>();
-        if (mm != null && !mm.CanAct) return;
+        if (match != null && !match.CanAct) return;
         if (targeting == null || aimPoint == null) return;
         var status = GetComponent<Arena.Combat.StatusController>();
         if (status != null && status.Has(Arena.Combat.StatusType.Stun)) return;

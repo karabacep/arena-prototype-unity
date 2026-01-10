@@ -6,38 +6,64 @@ public class PlayerMotor : MonoBehaviour
     [Header("References")]
     [SerializeField] private PlayerInputHandler input;
     [SerializeField] private Transform cameraYaw; // pivot direction caméra
+    [SerializeField] private Arena.Abilities.AbilityRunner abilityRunner;
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 6.0f;
     [SerializeField] private float gravity = -20f;
 
+    [Header("Manager")]
+    [SerializeField] private MatchManager match;
+
     private CharacterController controller;
     private float verticalVelocity;
+
+    // Cache (évite GetComponent chaque frame)
+    private Arena.Combat.StatusController status;
 
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
+
         if (input == null) input = GetComponent<PlayerInputHandler>();
+        if (abilityRunner == null) abilityRunner = GetComponent<Arena.Abilities.AbilityRunner>();
+        if (match == null) match = FindFirstObjectByType<MatchManager>();
+
+        status = GetComponent<Arena.Combat.StatusController>();
     }
 
     private void Update()
     {
-        // On ne stoppe JAMAIS l'Update complet : sinon plus de gravité => "vol"
-        var mm = FindObjectOfType<MatchManager>();
-        bool canAct = (mm == null) || mm.CanAct;
+        bool canAct = (match == null) || match.CanAct;
 
         ApplyGravity();
 
-        // Stun = pas de mouvement horizontal, mais on garde gravité
-        var status = GetComponent<Arena.Combat.StatusController>();
         bool stunned = status != null && status.Has(Arena.Combat.StatusType.Stun);
 
-        Move(canAct && !stunned);
+        bool isCasting = abilityRunner != null && abilityRunner.GetCastInfo().isCasting;
+        bool canMoveWhileCasting = status != null && status.Has(Arena.Combat.StatusType.CastWhileMoving);
+
+        // Micro-input = cancel (WoW-like). Rotation caméra ne cancel pas car on regarde MoveInput.
+        Vector2 moveInput = input != null ? input.MoveInput : Vector2.zero;
+        bool wantsMove = moveInput.sqrMagnitude > 0f;
+
+        // Bouger pendant un cast => cancel (sauf buff)
+        if (canAct && isCasting && !canMoveWhileCasting && wantsMove)
+        {
+            if (abilityRunner != null)
+                abilityRunner.CancelCast();
+
+            Move(false); // pas de déplacement horizontal ce frame
+            return;
+        }
+
+        bool allowHorizontalMove = canAct && !stunned;
+        Move(allowHorizontalMove);
     }
 
     private void ApplyGravity()
     {
-        // Sticky gravity pour rester au sol
+        // Sticky gravity
         if (controller.isGrounded && verticalVelocity < 0f)
             verticalVelocity = -2f;
 
@@ -46,10 +72,8 @@ public class PlayerMotor : MonoBehaviour
 
     private void Move(bool allowHorizontalMove)
     {
-        // Si on ne peut pas agir, on met l'input à 0 (mais on applique quand même la gravité)
         Vector2 move = (input != null && allowHorizontalMove) ? input.MoveInput : Vector2.zero;
 
-        // Direction relative à la caméra (WoW-like)
         Vector3 forward = cameraYaw != null ? cameraYaw.forward : transform.forward;
         Vector3 right = cameraYaw != null ? cameraYaw.right : transform.right;
 

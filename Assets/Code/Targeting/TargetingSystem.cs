@@ -144,4 +144,9 @@ public class TargetingSystem : MonoBehaviour
         CurrentTarget = t;
         // Plus tard: event OnTargetChanged(CurrentTarget)
     }
+    public void ClearTarget()
+    {
+        SetTarget(null);
+    }
+
 }

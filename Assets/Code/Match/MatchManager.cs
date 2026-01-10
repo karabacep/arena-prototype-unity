@@ -111,6 +111,9 @@ public class MatchManager : MonoBehaviour
 
     public void StartRound()
     {
+        var targeting = player.GetComponent<TargetingSystem>();
+        if (targeting != null)
+            targeting.ClearTarget();
         StopAllCoroutines();
         StartCoroutine(CountdownRoutine());
     }

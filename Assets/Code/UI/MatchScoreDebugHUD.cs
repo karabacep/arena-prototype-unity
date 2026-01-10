@@ -20,7 +20,7 @@ public class MatchScoreDebugHUD : MonoBehaviour
         if (match == null) return;
 
         GUI.Label(
-            new Rect(10, 10, 400, 25),
+            new Rect(10, 55, 700, 25),
             $"ROUND {match.RoundIndex} | SCORE P:{match.PlayerRoundsWon} - E:{match.EnemyRoundsWon} | STATE: {match.State}",
             style
         );
