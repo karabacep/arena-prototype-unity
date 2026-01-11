@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c64cfd6e29f51c34d9705b8834c809e2, type: 3}
+  m_Name: Loadout_MageProto
+  m_EditorClassIdentifier: Assembly-CSharp::AbilityLoadout
+  slots:
+  - {fileID: 11400000, guid: fc942f4bb22aed94984e6521a56e9a9e, type: 2}
+  - {fileID: 11400000, guid: ab5c29ee43f1c2b4b862589437e15abb, type: 2}
+  - {fileID: 11400000, guid: df348705eea899d48ab11b831baca2c8, type: 2}
+  - {fileID: 11400000, guid: a4eb1940404aff74b981c6f666c443ac, type: 2}
+  - {fileID: 11400000, guid: cc88ef259d4d11f4d96c0bbb35c9923f, type: 2}

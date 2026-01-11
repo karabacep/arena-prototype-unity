@@ -19,6 +19,11 @@ namespace Arena.Abilities
         public bool IsCasting { get; private set; }
         public float CastRemaining { get; private set; }
         public AbilityData CastingAbility { get; private set; }
+        [Header("Loadout")]
+        [SerializeField] private AbilityLoadout loadout;
+        public AbilityLoadout Loadout => loadout;
+
+        public void SetLoadout(AbilityLoadout l) => loadout = l;
 
         public event Action<AbilityData> OnCastStarted;
         public event Action<AbilityData> OnCastCompleted;
@@ -50,6 +55,21 @@ namespace Arena.Abilities
         private void Update()
         {
             TickCast();
+        }
+        public bool TryCastSlot(int slotIndex)
+        {
+            if (loadout == null) return false;
+            var a = loadout.Get(slotIndex);
+            if (a == null) return false;
+            return TryCast(a);
+        }
+
+        public bool TryCastSlotOnTarget(int slotIndex, Transform target)
+        {
+            if (loadout == null) return false;
+            var a = loadout.Get(slotIndex);
+            if (a == null) return false;
+            return TryCastOnTarget(a, target);
         }
 
         public bool TryCast(AbilityData ability)
